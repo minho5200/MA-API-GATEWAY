@@ -1,0 +1,53 @@
+
+server:
+  port: 9443
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: MA-API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      #  - id: ma-user-service
+      #    uri: lb://MA-USER-SERVICE
+      #    predicates:
+      #      - Path=/user/auth/login
+      #      - Method=POST
+      #    filters:
+      #      - RemoveRequestHeader=Cookie # 쿠키 삭제 후 실행
+      #      - RewritePath=/user/auth/(?<segment>.*), /$\{segment}
+      #  - id: ma-user-service
+      #    uri: lb://MA-USER-SERVICE
+      #    predicates:
+      #      - Path=/user/auth/users
+      #      - Method=POST
+      #    filters:
+      #      - RemoveRequestHeader=Cookie # 쿠키 삭제 후 실행
+      #      - RewritePath=/user/auth/(?<segment>.*), /$\{segment}
+      #  - id: ma-user-service
+      #    uri: lb://MA-USER-SERVICE
+      #    predicates:
+      #      - Path=/user/**
+      #      - Method=GET
+      #    filters:
+      #      - RemoveRequestHeader=Cookie # 쿠키 삭제 후 실행
+      #      - RewritePath=/user/auth/(?<segment>.*), /$\{segment}
+      #      - AuthorizationHeaderFilter
+        - id: ma-item-service
+          #http://service1-host:port
+          uri: lb://MA-ITEM-SERVICE
+          predicates:
+            - Path=/item/**
+          filters:
+            - AuthenticationFilter
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8787/eureka
+
+jwt:
+  secret: testing
+  validity: 20
