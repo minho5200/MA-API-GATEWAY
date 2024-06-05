@@ -39,8 +39,8 @@ spring:
           uri: lb://MA-ITEM-SERVICE
           predicates:
             - Path=/item/**
-          filters:
-            - AuthenticationFilter
+      #    filters:
+      #      - AuthenticationFilter
 eureka:
   client:
     register-with-eureka: true
@@ -48,6 +48,3 @@ eureka:
     service-url:
       defaultZone: http://localhost:8787/eureka
 
-jwt:
-  secret: testing
-  validity: 20
