@@ -1,9 +1,18 @@
 
 server:
   port: 9443
+
+springdoc:
+  #api-docs:
+  #  path: /v3/api-docs
+
+  swagger-ui:
+    path: /swagger-ui.html
+
+
 spring:
-  main:
-    web-application-type: reactive
+  #main:
+  #  web-application-type: reactive
   application:
     name: MA-API-GATEWAY
   cloud:
@@ -39,6 +48,11 @@ spring:
           uri: lb://MA-ITEM-SERVICE
           predicates:
             - Path=/item/**
+        - id: ma-user-service
+          #http://service1-host:port
+          uri: lb://MA-USER-SERVICE
+          predicates:
+            - Path=/user/**
       #    filters:
       #      - AuthenticationFilter
 eureka:
@@ -47,4 +61,3 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8787/eureka
-
